@@ -1,0 +1,168 @@
+:root{
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --card-2: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+  --primary: #1d4ed8;
+  --primary-600:#1e40af;
+  --accent:#059669;
+  --danger:#dc2626;
+  --shadow: 0 8px 24px rgba(0,0,0,.08);
+  --radius: 18px;
+}
+
+*{ box-sizing: border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Top bar */
+.topbar{
+  position: sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 16px; background: var(--card-2);
+  box-shadow: var(--shadow); border-bottom: 1px solid var(--border);
+}
+.brand{ display:flex; align-items:center; gap:12px; }
+.brand .logo{ width:36px; height:36px; border-radius:10px; }
+.brand h1{ font-size:20px; margin:0; color: var(--text); }
+
+.actions{ display:flex; gap:8px; align-items:center; }
+.split{ display:flex; gap:8px; flex-wrap:wrap; }
+
+/* Layout */
+.container{
+  max-width: 1280px;
+  margin: 16px auto;
+  padding: 0 12px;
+}
+
+/* Card de búsqueda */
+.search-card{
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+.row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.meta{ color: var(--muted); font-size: 14px; justify-content:space-between; }
+
+/* Inputs */
+.input,.select{
+  flex:1; min-width: 220px; color: var(--text);
+  padding: 12px 14px;
+  background: #fff; border: 1px solid #d1d5db;
+  border-radius: 12px; outline: none;
+}
+.input::placeholder{ color:#9aa4b2; }
+.input:focus, .select:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(29,78,216,.18);
+}
+
+/* Botones */
+.btn, .btn-secondary{
+  padding: 12px 16px; border-radius: 12px; cursor: pointer; border: 1px solid #d1d5db;
+}
+.btn{ background: var(--primary); color:#fff; border-color: transparent; }
+.btn:hover{ background: var(--primary-600); }
+.btn-secondary{ background: #fff; color: var(--text); }
+.btn-secondary:hover{ background:#f3f4f6; }
+
+/* Tabla dentro de un contenedor scrolleable */
+.table-wrap{
+  position: relative;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: auto;
+  max-height: calc(100vh - 220px);
+}
+
+.table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.table thead th{
+  position: sticky; top: 0; z-index: 2;
+  background: #f8fafc;
+  color: #0f172a;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.table tbody td{
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  background: #fff;
+}
+.table tbody tr:nth-child(even){ background: #f9fafb; }
+.table tbody tr:hover{ background: #eef2f7; }
+
+/* Indicadores de orden */
+.table thead th .sort{ opacity:.35; margin-left:6px; font-size:11px; }
+.table thead th.active .sort{ opacity:1; }
+.table thead th.asc .sort::after{ content:"↑"; }
+.table thead th.desc .sort::after{ content:"↓"; }
+
+/* Spinner */
+.spinner{
+  position: absolute; inset: 0;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,.65);
+  pointer-events: none; opacity: 0; transition: opacity .15s ease;
+}
+.spinner.show{ opacity: 1; }
+.spinner::after{
+  content:"";
+  width: 36px; height:36px;
+  border: 4px solid #cbd5e1; border-top-color: var(--primary);
+  border-radius: 50%; animation: spin 1s linear infinite;
+}
+@keyframes spin{ to{ transform: rotate(360deg);} }
+
+.empty{ padding: 24px; text-align:center; color: var(--muted); }
+
+.status{ margin-left:auto; color: var(--accent); }
+
+.footer{
+  text-align:center; color: var(--muted);
+  padding: 16px 0 28px;
+}
+
+/* Resaltado de coincidencias */
+.hl{
+  background: #fff59d;
+  color: #111827;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+/* Tablet 1340x800: oculto columnas menos críticas si falta ancho */
+@media (max-width: 1360px){
+  .table thead th:nth-last-child(-n+2),
+  .table tbody td:nth-last-child(-n+2){
+    display:none; /* Vendedor y Código barras */
+  }
+}
+
+/* ---------- Estilos para impresión/Export ---------- */
+@media print {
+  body { background:#fff; }
+  .topbar, .search-card, .footer { display:none !important; }
+  .table-wrap { max-height: none; overflow: visible; box-shadow:none; border:none; }
+  .table thead th { position: static; }
+}
