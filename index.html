@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1340, initial-scale=1" />
+  <title>Stock • Óptica Bs As</title>
+  <link rel="icon" type="image/png" href="logo_Bs_As.png" />
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="logo_Bs_As.png" alt="Logo" class="logo">
+      <h1>Stock anteojos</h1>
+    </div>
+    <div class="actions">
+      <div class="field">
+        <label for="search">Buscar</label>
+        <input id="search" class="input" type="text" placeholder="Marca, modelo, color, código de barras…" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="familia">Familia</label>
+        <select id="familia" class="select">
+          <option value="todas">Todas</option>
+          <option value="RECETA">Receta</option>
+          <option value="SOL">Sol</option>
+        </select>
+      </div>
+      <div class="status-box">
+        <span id="status" class="status"></span>
+        <span id="lastSync" class="last-sync"></span>
+      </div>
+      <div id="spinner" class="spinner" hidden></div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="card">
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-num">N°</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Color</th>
+              <th>Armazón</th>
+              <th class="col-calibre">Cal.</th>
+              <th>Cristal / Color</th>
+              <th class="col-familia">Familia</th>
+              <th class="col-precio">Precio</th>
+              <th class="col-fecha">Ingreso</th>
+              <th class="col-fecha">Venta</th>
+              <th class="col-vendedor">Vendedor</th>
+              <th class="col-codigo">Código barras</th>
+              <th class="col-obs">Observaciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div id="empty" class="empty" hidden>Sin resultados</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>© Óptica Buenos Aires</small>
+  </footer>
+
+  <script src="app.js?v=9"></script>
+</body>
+</html>
