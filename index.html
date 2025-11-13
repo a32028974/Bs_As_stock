@@ -10,56 +10,70 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <img src="logo_Bs_As.png" alt="Logo" class="logo">
+      <img src="logo_Bs_As.png" alt="Logo Óptica Bs As" class="logo">
       <h1>Stock anteojos</h1>
     </div>
     <div class="actions">
-      <div class="field">
-        <label for="search">Buscar</label>
-        <input id="search" class="input" type="text" placeholder="Marca, modelo, color, código de barras…" autocomplete="off" />
+      <button id="reloadBtn" class="btn">Actualizar</button>
+      <button id="forceBtn" class="btn-secondary" title="Forzar recarga (ignora cache)">Forzar</button>
+      <div class="split">
+        <button id="expVendidosBtn" class="btn-secondary">Exportar PDF • Vendidos</button>
+        <button id="expDisponiblesBtn" class="btn-secondary">Exportar PDF • Disponibles</button>
       </div>
-      <div class="field">
-        <label for="familia">Familia</label>
-        <select id="familia" class="select">
-          <option value="todas">Todas</option>
-          <option value="RECETA">Receta</option>
-          <option value="SOL">Sol</option>
-        </select>
-      </div>
-      <div class="status-box">
-        <span id="status" class="status"></span>
-        <span id="lastSync" class="last-sync"></span>
-      </div>
-      <div id="spinner" class="spinner" hidden></div>
     </div>
   </header>
 
-  <main class="main">
-    <section class="card">
-      <div class="table-wrapper">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="col-num">N°</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Color</th>
-              <th>Armazón</th>
-              <th class="col-calibre">Cal.</th>
-              <th>Cristal / Color</th>
-              <th class="col-familia">Familia</th>
-              <th class="col-precio">Precio</th>
-              <th class="col-fecha">Ingreso</th>
-              <th class="col-fecha">Venta</th>
-              <th class="col-vendedor">Vendedor</th>
-              <th class="col-codigo">Código barras</th>
-              <th class="col-obs">Observaciones</th>
-            </tr>
-          </thead>
-          <tbody id="tbody"></tbody>
-        </table>
-        <div id="empty" class="empty" hidden>Sin resultados</div>
+  <main class="container">
+    <section class="search-card">
+      <div class="row">
+        <input
+          id="q"
+          class="input"
+          type="search"
+          placeholder="Buscar por Nº, modelo, color, marca o código de barras…"
+          autofocus
+        />
+        <select id="familia" class="select">
+          <option value="">Familia (todas)</option>
+          <option value="RECETA">RECETA</option>
+          <option value="SOL">SOL</option>
+        </select>
+        <select id="estadoVenta" class="select">
+          <option value="">Estado (todos)</option>
+          <option value="DISPONIBLE">Disponible</option>
+          <option value="VENDIDO">Vendido</option>
+        </select>
+        <button id="clearBtn" class="btn-secondary">Limpiar</button>
       </div>
+      <div class="row meta">
+        <span id="count">—</span>
+        <span id="lastSync">—</span>
+        <span id="status" class="status"></span>
+      </div>
+    </section>
+
+    <section class="table-wrap">
+      <div id="spinner" class="spinner" hidden></div>
+      <table id="tabla" class="table">
+        <thead>
+          <tr>
+            <th data-sort="n_anteojo">N° <span class="sort"></span></th>
+            <th data-sort="marca">Marca <span class="sort"></span></th>
+            <th data-sort="modelo">Modelo <span class="sort"></span></th>
+            <th data-sort="color">Color <span class="sort"></span></th>
+            <th data-sort="familia">Familia <span class="sort"></span></th>
+            <th data-sort="cristal_color">Color cristal <span class="sort"></span></th>
+            <th data-sort="calibre">Calibre <span class="sort"></span></th>
+            <th data-sort="precio">Precio público <span class="sort"></span></th>
+            <th data-sort="fecha_ingreso">Ingreso <span class="sort"></span></th>
+            <th data-sort="fecha_venta">Venta <span class="sort"></span></th>
+            <th data-sort="vendedor">Vendedor <span class="sort"></span></th>
+            <th data-sort="codigo_barras">Código barras <span class="sort"></span></th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div id="empty" class="empty" hidden>Sin resultados</div>
     </section>
   </main>
 
